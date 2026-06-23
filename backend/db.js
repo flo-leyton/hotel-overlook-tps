@@ -8,7 +8,9 @@ const defaultDatabasePath = path.resolve(
   "database",
   "hotel_overlook_tps.sqlite"
 );
-const databasePath = path.resolve(process.env.DB_PATH || defaultDatabasePath);
+const databasePath = path.resolve(
+  process.env.SQLITE_PATH || process.env.DB_PATH || defaultDatabasePath
+);
 
 if (!fs.existsSync(databasePath)) {
   throw new Error(

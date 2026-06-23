@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: hotel-overlook-tps
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SQLITE_PATH
+        value: database/hotel_overlook_tps.sqlite

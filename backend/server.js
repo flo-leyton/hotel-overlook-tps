@@ -17,7 +17,7 @@ const authRoutes = require("./routes/auth.routes");
 const rolesRoutes = require("./routes/roles.routes");
 
 const app = express();
-const port = Number(process.env.PORT) || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.disable("x-powered-by");
 app.use(cors());
@@ -49,7 +49,7 @@ app.use("/api/tarifas", tarifasRoutes);
 const frontendPath = path.resolve(__dirname, "..", "html");
 app.use(express.static(frontendPath));
 app.get("/", (req, res) => {
-  res.redirect("/landing-pages/hotel-overlook.html");
+  res.sendFile(path.join(frontendPath, "landing-pages", "hotel-overlook.html"));
 });
 
 app.use((req, res) => {
@@ -75,8 +75,8 @@ app.use((error, req, res, next) => {
 });
 
 if (require.main === module) {
-  app.listen(port, () => {
-    console.log(`TPS Hotel Overlook escuchando en http://localhost:${port}`);
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Servidor ejecutándose en puerto ${PORT}`);
   });
 }
 

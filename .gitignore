@@ -1,0 +1,10 @@
+node_modules/
+.env
+.DS_Store
+npm-debug.log
+*.log
+
+# SQLite demo database is intentionally kept in database/hotel_overlook_tps.sqlite.
+# Ignore transient SQLite sidecar files generated during local execution.
+*.sqlite-shm
+*.sqlite-wal

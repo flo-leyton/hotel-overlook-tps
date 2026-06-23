@@ -2,6 +2,7 @@
   "use strict";
 
   const STORAGE_KEY = "hotel_overlook_usuario";
+  const API_BASE_URL = "/api";
   const HTML_PREFIX = global.location.pathname.includes("/html/")
     ? global.location.pathname.slice(
         0,
@@ -49,7 +50,7 @@
   }
 
   async function login(correo, password) {
-    const response = await fetch("http://localhost:3000/api/auth/login", {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ correo, password }),
@@ -63,7 +64,7 @@
   async function logout() {
     const usuario = obtenerUsuario();
     try {
-      await fetch("http://localhost:3000/api/auth/logout", {
+      await fetch(`${API_BASE_URL}/auth/logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
