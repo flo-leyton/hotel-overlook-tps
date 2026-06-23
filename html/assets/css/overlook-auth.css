@@ -1,0 +1,99 @@
+.overlook-auth-page {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--bs-white);
+}
+
+.overlook-auth-page .overlook-auth-row {
+  min-height: 100vh;
+}
+
+.overlook-auth-page .overlook-auth-form-panel {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2.5rem clamp(1.5rem, 4vw, 4rem);
+}
+
+.overlook-auth-page .overlook-auth-card {
+  width: min(100%, 29rem);
+  margin-inline: auto;
+}
+
+.overlook-auth-page .overlook-auth-card .card-body {
+  padding: 0;
+}
+
+.overlook-auth-page .overlook-auth-brand {
+  gap: .7rem;
+}
+
+.overlook-auth-page .overlook-auth-logo {
+  width: auto;
+  height: 3.35rem;
+  max-width: 17rem;
+  object-fit: contain;
+}
+
+.overlook-auth-page .overlook-auth-logo:not(.d-none) ~ .overlook-auth-logo-fallback-icon,
+.overlook-auth-page .overlook-auth-logo:not(.d-none) ~ .overlook-auth-logo-fallback-text {
+  display: none;
+}
+
+.overlook-auth-page .overlook-auth-card h2 {
+  max-width: 13ch;
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  line-height: 1.08;
+}
+
+.overlook-auth-page .overlook-auth-card .form-control,
+.overlook-auth-page .overlook-auth-card .btn {
+  min-height: 3.25rem;
+}
+
+.overlook-auth-page .overlook-auth-visual {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #10285f;
+}
+
+.overlook-auth-page .overlook-auth-visual img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlook-auth-page .overlook-auth-visual::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, rgba(5, 24, 69, .18), rgba(5, 24, 69, .72));
+}
+
+.overlook-auth-page .overlook-auth-visual-copy {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: clamp(2rem, 5vw, 5rem);
+}
+
+@media (max-width: 991.98px) {
+  .overlook-auth-page .overlook-auth-form-panel {
+    padding-block: 3rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .overlook-auth-page .overlook-auth-form-panel {
+    align-items: flex-start;
+    padding: 2rem 1.25rem;
+  }
+
+  .overlook-auth-page .overlook-auth-card h2 {
+    font-size: 2rem;
+  }
+}

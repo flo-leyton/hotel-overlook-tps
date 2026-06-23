@@ -1,0 +1,179 @@
+/* Hotel Overlook TPS — refinamiento sobre HopeUI. */
+:root {
+  --overlook-radius: .75rem;
+  --overlook-shadow: 0 .25rem 1.25rem rgba(17, 38, 65, .07);
+  --overlook-border: rgba(138, 146, 166, .18);
+}
+
+body.hotel-overlook-tps { background: #f6f7f9; }
+.hotel-overlook-tps .content-inner { padding-bottom: 2rem; }
+.hotel-overlook-tps .content-inner > .row,
+.hotel-overlook-tps .content-inner > .card,
+.hotel-overlook-tps .content-inner > .alert,
+.hotel-overlook-tps .content-inner > form { margin-bottom: 1.5rem; }
+.hotel-overlook-tps .card {
+  border: 1px solid var(--overlook-border);
+  border-radius: var(--overlook-radius);
+  box-shadow: var(--overlook-shadow);
+}
+.hotel-overlook-tps .card-header {
+  padding: 1.15rem 1.25rem;
+  border-bottom-color: var(--overlook-border);
+}
+.hotel-overlook-tps .card-body { padding: 1.25rem; }
+.hotel-overlook-tps .card-title { margin-bottom: 0; }
+.hotel-overlook-tps .row > [class*="col-"] > .card {
+  height: calc(100% - 1.5rem);
+  margin-bottom: 1.5rem;
+}
+.hotel-overlook-tps .iq-navbar-header { min-height: 180px; }
+.hotel-overlook-tps .iq-navbar-header h1 {
+  max-width: 48rem;
+  font-size: clamp(1.65rem, 3vw, 2.5rem);
+}
+.hotel-overlook-tps .iq-navbar-header p { max-width: 48rem; margin-bottom: 0; }
+.hotel-overlook-tps .sidebar-menu-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: 0 0 1.35rem;
+  font-size: .62rem;
+  letter-spacing: -.03em;
+}
+.hotel-overlook-tps .sidebar .nav-link { min-height: 2.75rem; }
+.hotel-overlook-tps .navbar-brand .logo-title,
+.hotel-overlook-tps .navbar-brand h5 { line-height: 1.15; }
+.hotel-overlook-tps .metric-icon { flex: 0 0 auto; }
+.hotel-overlook-tps [id^="metric-"],
+.hotel-overlook-tps [id^="rooms-"],
+.hotel-overlook-tps [id^="guests-"] { overflow-wrap: anywhere; }
+.hotel-overlook-tps .progress {
+  min-height: .65rem;
+  border-radius: 999px;
+  background-color: rgba(138, 146, 166, .16);
+}
+.hotel-overlook-tps .table-responsive {
+  border-radius: calc(var(--overlook-radius) - .1rem);
+  -webkit-overflow-scrolling: touch;
+}
+.hotel-overlook-tps .table { margin-bottom: 0; vertical-align: middle; }
+.hotel-overlook-tps .table > :not(caption) > * > * { padding: .85rem .75rem; }
+.hotel-overlook-tps .table thead th {
+  color: #596780;
+  background: #f7f8fa;
+  border-bottom-width: 1px;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.hotel-overlook-tps .table tbody td { max-width: 22rem; }
+.hotel-overlook-tps .table tbody td a[href^="mailto:"] {
+  display: inline-block;
+  max-width: 13rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.hotel-overlook-tps .table-actions,
+.hotel-overlook-tps td.text-end > .btn-group {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: .35rem;
+  justify-content: flex-end;
+}
+.hotel-overlook-tps td.text-end > .btn-group > .btn,
+.hotel-overlook-tps .table-actions > .btn { border-radius: .35rem !important; }
+.hotel-overlook-tps .table-action-select,
+.hotel-overlook-tps .room-status-select { width: auto; min-width: 9.5rem; }
+.hotel-overlook-tps .request-controls { min-width: 11rem; }
+.hotel-overlook-tps .badge { line-height: 1.2; white-space: nowrap; }
+.hotel-overlook-tps .offcanvas-end { width: min(34rem, 100vw); }
+.hotel-overlook-tps .offcanvas-header {
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+}
+.hotel-overlook-tps .offcanvas-body { padding: 1.5rem; }
+.hotel-overlook-tps .form-label { margin-bottom: .4rem; font-weight: 500; }
+.hotel-overlook-tps .form-control,
+.hotel-overlook-tps .form-select { min-height: 2.65rem; }
+.hotel-overlook-tps textarea.form-control { min-height: 6rem; }
+.hotel-overlook-tps .alert { border-radius: var(--overlook-radius); }
+.hotel-overlook-tps .top-tab-list { gap: .5rem; }
+.hotel-overlook-tps .top-tab-list li a {
+  min-height: 4.25rem;
+  padding: .8rem;
+  border-radius: .65rem;
+}
+.hotel-overlook-tps .top-tab-list .iq-icon { flex: 0 0 auto; }
+.hotel-overlook-tps .steps {
+  margin-bottom: 0;
+  color: var(--bs-primary);
+  font-size: 1rem;
+  text-align: end;
+}
+.hotel-overlook-tps fieldset { text-align: start; }
+.hotel-overlook-tps .room-status { min-height: 6.5rem; }
+.hotel-overlook-tps .operation-timeline { padding-left: 1.25rem; }
+.hotel-overlook-tps .operation-timeline::before { left: .35rem; }
+.hotel-overlook-tps .landing-request-card {
+  height: 100%;
+  padding: 1rem;
+  border: 1px solid var(--overlook-border);
+  border-radius: .65rem;
+  background: #fff;
+}
+.hotel-overlook-tps :focus-visible {
+  outline: 3px solid rgba(var(--bs-primary-rgb), .28);
+  outline-offset: 2px;
+}
+
+@media (max-width: 991.98px) {
+  .hotel-overlook-tps .iq-navbar-header { min-height: 165px; }
+  .hotel-overlook-tps .content-inner { padding-inline: 1rem; }
+  .hotel-overlook-tps .top-tab-list li { width: calc(50% - .25rem); }
+  .hotel-overlook-tps .top-tab-list li a { height: 100%; }
+}
+
+@media (max-width: 767.98px) {
+  .hotel-overlook-tps .content-inner {
+    margin-top: -2.5rem !important;
+    padding-inline: .75rem;
+  }
+  .hotel-overlook-tps .iq-navbar-header { min-height: 190px; }
+  .hotel-overlook-tps .iq-navbar-header .d-flex.justify-content-between {
+    gap: .75rem;
+    align-items: flex-start !important;
+  }
+  .hotel-overlook-tps .card-header,
+  .hotel-overlook-tps .card-body { padding: 1rem; }
+  .hotel-overlook-tps .card-header .d-flex { gap: .75rem; }
+  .hotel-overlook-tps .table { min-width: 46rem; }
+  .hotel-overlook-tps .table > :not(caption) > * > * { padding: .72rem .65rem; }
+  .hotel-overlook-tps .btn-group,
+  .hotel-overlook-tps .table-actions { min-width: max-content; }
+  .hotel-overlook-tps .top-tab-list li { width: 100%; }
+  .hotel-overlook-tps .steps { font-size: .85rem; }
+  .hotel-overlook-tps .offcanvas-header,
+  .hotel-overlook-tps .offcanvas-body { padding-inline: 1rem; }
+}
+
+@media (max-width: 575.98px) {
+  .hotel-overlook-tps .iq-navbar .navbar-brand small { display: none; }
+  .hotel-overlook-tps .iq-navbar-header .badge { white-space: normal; }
+  .hotel-overlook-tps fieldset > .row:first-child > .col-8,
+  .hotel-overlook-tps fieldset > .row:first-child > .col-4 { width: 100%; }
+  .hotel-overlook-tps .steps { margin-bottom: 1rem; text-align: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hotel-overlook-tps *,
+  .hotel-overlook-tps *::before,
+  .hotel-overlook-tps *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

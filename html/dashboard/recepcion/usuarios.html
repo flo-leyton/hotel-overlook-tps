@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Gestión de Usuarios | Hotel Overlook</title>
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+  <link rel="stylesheet" href="../../assets/css/hope-ui.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/custom.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/customizer.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/rtl.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/recepcion-ui.css">
+  <link rel="stylesheet" href="../../assets/css/recepcion-fixes.css?v=12.4">
+</head>
+<body data-page="usuarios.html" data-title="Gestión de Usuarios" data-description="Administración de accesos internos del TPS">
+<template id="page-content">
+  <div id="usuarios-alerts"></div>
+  <div class="card">
+    <div class="card-body d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <div><h4 class="mb-1">Gestión de Usuarios</h4><p class="text-muted mb-0">Administración de accesos internos del TPS</p></div>
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#userForm">Nuevo usuario</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-xl-3"><div class="card"><div class="card-body"><p class="text-muted">Usuarios activos</p><h2 id="users-active">0</h2><span class="badge bg-success">Activos</span></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card"><div class="card-body"><p class="text-muted">Supervisores</p><h2 id="users-supervisors">0</h2><span class="badge bg-info">Supervisión</span></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card"><div class="card-body"><p class="text-muted">Recepcionistas</p><h2 id="users-receptionists">0</h2><span class="badge bg-primary">Recepción</span></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card"><div class="card-body"><p class="text-muted">Usuarios bloqueados</p><h2 id="users-blocked">0</h2><span class="badge bg-danger">Bloqueados</span></div></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h4 class="card-title">Cuentas internas</h4></div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-striped align-middle mb-0">
+          <thead><tr><th>Nombre completo</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Último acceso</th><th class="text-end">Acciones</th></tr></thead>
+          <tbody id="usuarios-table-body"><tr><td colspan="6" class="text-center text-muted">Cargando usuarios...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="userForm" aria-labelledby="userFormLabel">
+    <div class="offcanvas-header">
+      <div><h4 class="offcanvas-title" id="userFormLabel">Crear usuario</h4><p class="text-muted mb-0">Cuenta interna del TPS</p></div>
+      <button class="btn-close" type="button" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div id="user-form-alerts"></div>
+      <form id="user-data-form" class="needs-validation" novalidate>
+        <input id="userId" type="hidden">
+        <div class="mb-3"><label class="form-label" for="userName">Nombre completo</label><input class="form-control" id="userName" required></div>
+        <div class="mb-3"><label class="form-label" for="userEmail">Correo</label><input class="form-control" id="userEmail" type="email" required></div>
+        <div class="mb-3"><label class="form-label" for="userPassword">Contraseña temporal</label><input class="form-control" id="userPassword" type="password" minlength="8"><small class="text-muted">Obligatoria al crear; opcional al editar.</small></div>
+        <div class="mb-3"><label class="form-label" for="userRole">Rol</label><select class="form-select" id="userRole" required></select></div>
+        <div class="mb-4"><label class="form-label" for="userStatus">Estado</label><select class="form-select" id="userStatus"><option value="activo">Activo</option><option value="inactivo">Inactivo</option><option value="bloqueado">Bloqueado</option></select></div>
+        <div class="d-flex justify-content-end gap-2"><button class="btn btn-outline-secondary" type="button" data-bs-dismiss="offcanvas">Cancelar</button><button class="btn btn-primary" type="submit">Guardar usuario</button></div>
+      </form>
+    </div>
+  </div>
+</template>
+<script src="../../assets/js/recepcion/auth.js?v=12.1"></script>
+<script src="recepcion-layout.js?v=12.3"></script>
+<script src="../../assets/js/core/libs.min.js"></script>
+<script src="../../assets/js/core/external.min.js"></script>
+<script src="../../assets/js/plugins/setting.js"></script>
+<script src="../../assets/js/hope-ui.js" defer></script>
+<script src="../../assets/js/recepcion/api.js"></script>
+<script src="../../assets/js/recepcion/usuarios.js"></script>
+</body></html>

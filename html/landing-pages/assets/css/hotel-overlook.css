@@ -1,0 +1,204 @@
+/* Refinamiento específico de la landing pública sobre HopeUI Landing Pages. */
+.hotel-overlook-landing { --hotel-radius: 1rem; --hotel-shadow: 0 .75rem 2.5rem rgba(26,45,72,.09); }
+.hotel-overlook-landing .iq-navbar {
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 .2rem 1.25rem rgba(26,45,72,.07);
+  backdrop-filter: blur(10px);
+}
+.hotel-overlook-landing .landing-header { min-height: 4.5rem; }
+.hotel-overlook-landing .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+}
+.hotel-overlook-landing .hotel-brand-logo {
+  width: auto;
+  height: 3.1rem;
+  max-width: 14rem;
+  object-fit: contain;
+}
+.hotel-overlook-landing .hotel-brand-logo:not(.d-none) + .hotel-brand-icon-fallback { display: none; }
+@supports selector(:has(*)) {
+  .hotel-overlook-landing .navbar-brand:has(.hotel-brand-logo:not(.d-none)) .logo-title { display: none; }
+}
+.hotel-overlook-landing .hotel-hero {
+  overflow: hidden;
+  padding: clamp(3.5rem,8vw,7rem) 0 clamp(3.5rem,7vw,6rem);
+  background: radial-gradient(circle at 85% 10%,rgba(var(--bs-primary-rgb),.12),transparent 30rem),var(--bs-body-bg);
+}
+.hotel-overlook-landing .hotel-hero .heading-title { font-size: clamp(2.5rem,6vw,4.75rem); line-height: 1; }
+.hotel-overlook-landing .hotel-hero-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .75rem;
+}
+.hotel-overlook-landing .hotel-hero-logo {
+  width: min(100%, 40rem);
+  max-height: 10.5rem;
+  object-fit: contain;
+  object-position: left center;
+}
+.hotel-overlook-landing .hotel-hero-logo:not(.d-none) + .hotel-logo-text-fallback { display: none; }
+.hotel-overlook-landing .hotel-hero-image {
+  width: 100%;
+  min-height: 27rem;
+  max-height: 34rem;
+  border-radius: var(--hotel-radius) !important;
+  box-shadow: var(--hotel-shadow);
+}
+.hotel-overlook-landing .section-space { padding: clamp(3.5rem,7vw,5.5rem) 0; }
+.hotel-overlook-landing .card {
+  border: 1px solid rgba(138,146,166,.18);
+  border-radius: var(--hotel-radius);
+  box-shadow: var(--hotel-shadow);
+}
+.hotel-overlook-landing .card-body { padding: 1.5rem; }
+.hotel-overlook-landing #servicios .row > [class*="col-"] > .card,
+.hotel-overlook-landing section:not(#habitaciones) .row > [class*="col-"] > .card { height: 100%; }
+.hotel-overlook-landing .app-slider {
+  position: relative;
+  overflow: hidden;
+  padding: .5rem .25rem 5rem;
+}
+.hotel-overlook-landing .app-slider .swiper-wrapper { align-items: stretch; }
+.hotel-overlook-landing .app-slider .swiper-slide { height: auto; }
+.hotel-overlook-landing .app-slider .card-body { display: flex; flex-direction: column; }
+.hotel-overlook-landing .app-slider .room-request { margin-top: auto; }
+.hotel-overlook-landing .room-image { height: 14rem; object-fit: cover; }
+.hotel-overlook-landing .app-slider .room-slider-prev,
+.hotel-overlook-landing .app-slider .room-slider-next {
+  top: auto;
+  bottom: 1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--bs-white);
+  box-shadow: 0 .75rem 2rem rgba(26,45,72,.12);
+  color: var(--bs-primary);
+}
+.hotel-overlook-landing .app-slider .room-slider-prev { left: calc(50% - 3.25rem); }
+.hotel-overlook-landing .app-slider .room-slider-next { right: calc(50% - 3.25rem); }
+.hotel-overlook-landing .app-slider .room-slider-prev::after,
+.hotel-overlook-landing .app-slider .room-slider-next::after { font-size: 1rem; font-weight: 700; }
+.hotel-overlook-landing .app-slider .room-slider-pagination {
+  bottom: .15rem;
+  left: 0;
+  right: 0;
+}
+.hotel-overlook-landing .app-slider .swiper-pagination-bullet-active { background: var(--bs-primary); }
+.hotel-overlook-landing .hotel-gallery-slider {
+  position: relative;
+  overflow: hidden;
+  padding: .5rem .25rem 3.25rem;
+}
+.hotel-overlook-landing .hotel-gallery-slider .swiper-wrapper { align-items: stretch; }
+.hotel-overlook-landing .hotel-gallery-slider .swiper-slide { height: auto; }
+.hotel-overlook-landing .hotel-gallery-card {
+  height: 100%;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.hotel-overlook-landing .hotel-gallery-card:hover {
+  transform: translateY(-.25rem);
+  box-shadow: 0 1rem 3rem rgba(26,45,72,.13);
+}
+.hotel-overlook-landing .hotel-gallery-image {
+  width: 100%;
+  height: clamp(15rem, 26vw, 22rem);
+  object-fit: cover;
+  display: block;
+}
+.hotel-overlook-landing .hotel-gallery-slider .hotel-gallery-control {
+  position: absolute;
+  top: 45%;
+  z-index: 5;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--bs-white);
+  box-shadow: 0 .75rem 2rem rgba(26,45,72,.12);
+  color: var(--bs-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.hotel-overlook-landing .hotel-gallery-slider .hotel-gallery-control::after {
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+}
+.hotel-overlook-landing .hotel-gallery-slider .hotel-gallery-next::after { content: "›"; }
+.hotel-overlook-landing .hotel-gallery-slider .hotel-gallery-prev::after { content: "‹"; }
+.hotel-overlook-landing .hotel-gallery-slider .hotel-gallery-next { right: .75rem; }
+.hotel-overlook-landing .hotel-gallery-slider .hotel-gallery-prev { left: .75rem; }
+.hotel-overlook-landing .hotel-gallery-slider .hotel-gallery-pagination {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: .4rem;
+  text-align: center;
+  z-index: 4;
+}
+.hotel-overlook-landing .hotel-gallery-slider .swiper-pagination-bullet-active { background: var(--bs-primary); }
+.hotel-overlook-landing .hotel-section-brand,
+.hotel-overlook-landing .hotel-location-brand,
+.hotel-overlook-landing .hotel-footer-brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .75rem;
+}
+.hotel-overlook-landing .hotel-section-brand { row-gap: .35rem; }
+.hotel-overlook-landing .hotel-section-logo {
+  width: auto;
+  height: clamp(3rem, 5vw, 5.25rem);
+  max-width: min(100%, 24rem);
+  object-fit: contain;
+}
+.hotel-overlook-landing .hotel-footer-brand { margin-bottom: .75rem; }
+.hotel-overlook-landing .hotel-footer-brand .hotel-section-logo { height: 3.35rem; }
+.hotel-overlook-landing .hotel-section-logo:not(.d-none) + .hotel-section-logo-fallback { display: none; }
+.hotel-overlook-landing .table-responsive { border-radius: var(--hotel-radius); }
+.hotel-overlook-landing .table > :not(caption) > * > * { padding: 1rem; vertical-align: middle; }
+.hotel-overlook-landing .table thead th { background: #f7f8fa; white-space: nowrap; }
+.hotel-overlook-landing #publicReservationForm h5 { color: var(--bs-primary); }
+.hotel-overlook-landing #publicReservationForm .form-label { font-weight: 500; }
+.hotel-overlook-landing #publicReservationForm .form-control,
+.hotel-overlook-landing #publicReservationForm .form-select { min-height: 2.8rem; }
+.hotel-overlook-landing #publicReservationForm textarea.form-control { min-height: 7rem; }
+.hotel-overlook-landing .location-map-image { min-height: 22.5rem; object-fit: cover; }
+.hotel-overlook-landing :focus-visible { outline: 3px solid rgba(var(--bs-primary-rgb),.28); outline-offset: 2px; }
+
+@media (max-width: 991.98px) {
+  .hotel-overlook-landing .hotel-hero-image { min-height: 20rem; }
+  .hotel-overlook-landing .mobile-offcanvas { max-width: 20rem; }
+}
+@media (max-width: 767.98px) {
+  .hotel-overlook-landing .hotel-hero { text-align: center; }
+  .hotel-overlook-landing .hotel-hero .d-flex { justify-content: center; }
+  .hotel-overlook-landing .hotel-hero-brand { align-items: center; }
+  .hotel-overlook-landing .hotel-hero-logo { object-position: center; max-height: 7rem; }
+  .hotel-overlook-landing .hotel-hero-image { min-height: 16rem; }
+  .hotel-overlook-landing .room-image { height: 12rem; }
+  .hotel-overlook-landing .hotel-gallery-image { height: 15rem; }
+  .hotel-overlook-landing .hotel-section-brand,
+  .hotel-overlook-landing .hotel-location-brand,
+  .hotel-overlook-landing .hotel-footer-brand {
+    justify-content: center;
+    text-align: center;
+  }
+  .hotel-overlook-landing .table { min-width: 42rem; }
+  .hotel-overlook-landing .footer-bottom { text-align: center; justify-content: center !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hotel-overlook-landing *,
+  .hotel-overlook-landing *::before,
+  .hotel-overlook-landing *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

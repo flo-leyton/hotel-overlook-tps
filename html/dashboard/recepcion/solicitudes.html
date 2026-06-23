@@ -1,0 +1,28 @@
+<!doctype html><html lang="es" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>Solicitudes | Hotel Overlook</title>
+<link rel="shortcut icon" href="../../assets/images/favicon.ico"><link rel="stylesheet" href="../../assets/css/core/libs.min.css"><link rel="stylesheet" href="../../assets/css/hope-ui.min.css?v=5.0.0"><link rel="stylesheet" href="../../assets/css/custom.min.css?v=5.0.0"><link rel="stylesheet" href="../../assets/css/customizer.min.css?v=5.0.0"><link rel="stylesheet" href="../../assets/css/rtl.min.css?v=5.0.0"><link rel="stylesheet" href="../../assets/css/recepcion-ui.css"><link rel="stylesheet" href="../../assets/css/recepcion-fixes.css?v=12.4">
+</head><body data-page="solicitudes.html" data-title="Solicitudes del huésped" data-description="Registrar y dar seguimiento visual a requerimientos comunicados a recepción."><template id="page-content">
+<div id="solicitudes-alerts"></div>
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-header"><h4 class="card-title">Nueva solicitud</h4></div>
+      <div class="card-body">
+        <form id="request-data-form" class="needs-validation" novalidate>
+          <div class="mb-3"><label class="form-label" for="requestRoom">ID de habitación</label><input class="form-control" id="requestRoom" type="number" min="1" placeholder="Ej. 10"></div>
+          <div class="mb-3"><label class="form-label" for="requestType">Tipo</label><select class="form-select" id="requestType" required><option value="">Seleccionar tipo</option><option value="informacion">Información</option><option value="limpieza">Limpieza</option><option value="mantenimiento">Mantenimiento</option><option value="transporte">Transporte</option><option value="otro">Otro</option></select></div>
+          <div class="mb-3"><label class="form-label" for="requestDescription">Detalle</label><textarea class="form-control" id="requestDescription" rows="4" required></textarea></div>
+          <div class="row"><div class="col-md-6 mb-3"><label class="form-label" for="requestChannel">Canal</label><select class="form-select" id="requestChannel"><option value="recepcion">Recepción</option><option value="whatsapp">WhatsApp</option><option value="telefono">Teléfono</option><option value="landing">Landing</option></select></div><div class="col-md-6 mb-3"><label class="form-label" for="requestPriority">Prioridad</label><select class="form-select" id="requestPriority"><option value="baja">Baja</option><option value="media" selected>Media</option><option value="alta">Alta</option><option value="urgente">Urgente</option></select></div></div>
+          <button class="btn btn-primary" type="submit">Registrar solicitud</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header"><h4 class="card-title">Solicitudes recientes</h4></div>
+      <div class="card-body p-0"><div class="table-responsive"><table class="table table-striped mb-0 align-middle"><thead><tr><th>Fecha</th><th>Habitación</th><th>Solicitud</th><th>Prioridad</th><th>Estado</th><th>Gestión</th></tr></thead><tbody id="solicitudes-table-body"><tr><td colspan="6" class="text-center text-muted">Cargando solicitudes…</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+</div>
+</template><script src="../../assets/js/recepcion/auth.js?v=12.1"></script><script src="recepcion-layout.js?v=12.3"></script><script src="../../assets/js/core/libs.min.js"></script><script src="../../assets/js/core/external.min.js"></script><script src="../../assets/js/plugins/setting.js"></script><script src="../../assets/js/hope-ui.js" defer></script><script src="../../assets/js/recepcion/api.js?v=12.2"></script><script src="../../assets/js/recepcion/solicitudes.js?v=12.2"></script></body></html>

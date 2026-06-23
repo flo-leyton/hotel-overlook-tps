@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Gestión de Habitaciones | Hotel Overlook</title>
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+  <link rel="stylesheet" href="../../assets/css/hope-ui.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/custom.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/customizer.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/rtl.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/recepcion-ui.css">
+  <link rel="stylesheet" href="../../assets/css/recepcion-fixes.css?v=12.4">
+</head>
+<body data-page="habitaciones.html" data-title="Gestión de Habitaciones" data-description="Control operativo de disponibilidad, ocupación y estado de habitaciones">
+<template id="page-content">
+  <div id="habitaciones-alerts"></div>
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+          <h4 class="mb-1">Gestión de Habitaciones</h4>
+          <p class="text-muted mb-0">Control operativo de disponibilidad, ocupación y estado de habitaciones</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn btn-outline-primary" type="button">
+            <svg class="icon-18 me-1" width="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v6h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Actualizar estados
+          </button>
+          <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#roomForm" aria-controls="roomForm">
+            <svg class="icon-18 me-1" width="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Registrar habitación
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row dashboard-kpi-scroller" tabindex="0" aria-label="Indicadores de habitaciones. Deslice horizontalmente para ver todas las tarjetas.">
+    <div class="col-sm-6 col-xl-2"><div class="card"><div class="card-body"><p class="text-muted mb-2">Total habitaciones</p><div class="d-flex justify-content-between align-items-end"><h2 class="mb-0" id="rooms-total">48</h2><span class="badge bg-primary">Inventario</span></div></div></div></div>
+    <div class="col-sm-6 col-xl-2"><div class="card"><div class="card-body"><p class="text-muted mb-2">Disponibles</p><div class="d-flex justify-content-between align-items-end"><h2 class="mb-0" id="rooms-disponibles">18</h2><span class="badge bg-success">Disponible</span></div></div></div></div>
+    <div class="col-sm-6 col-xl-2"><div class="card"><div class="card-body"><p class="text-muted mb-2">Ocupadas</p><div class="d-flex justify-content-between align-items-end"><h2 class="mb-0" id="rooms-ocupadas">21</h2><span class="badge bg-danger">Ocupada</span></div></div></div></div>
+    <div class="col-sm-6 col-xl-2"><div class="card"><div class="card-body"><p class="text-muted mb-2">Reservadas</p><div class="d-flex justify-content-between align-items-end"><h2 class="mb-0" id="rooms-reservadas">6</h2><span class="badge bg-info">Reservada</span></div></div></div></div>
+    <div class="col-sm-6 col-xl-2"><div class="card"><div class="card-body"><p class="text-muted mb-2">En limpieza</p><div class="d-flex justify-content-between align-items-end"><h2 class="mb-0" id="rooms-limpieza">3</h2><span class="badge bg-warning text-dark">Limpieza</span></div></div></div></div>
+    <div class="col-sm-6 col-xl-2"><div class="card"><div class="card-body"><p class="text-muted mb-2">Mantenimiento</p><div class="d-flex justify-content-between align-items-end"><h2 class="mb-0" id="rooms-mantenimiento">1</h2><span class="badge bg-dark">Mantenimiento</span></div></div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <div>
+        <h4 class="card-title mb-1">Filtros de habitaciones</h4>
+        <p class="text-muted mb-0">Localice habitaciones por sus datos operativos</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <form class="row g-3">
+        <div class="col-md-6 col-xl-3">
+          <label class="form-label" for="roomSearch">Número de habitación</label>
+          <input class="form-control" id="roomSearch" type="search" placeholder="Ej. 204">
+        </div>
+        <div class="col-md-6 col-xl-3">
+          <label class="form-label" for="roomTypeFilter">Tipo</label>
+          <select class="form-select" id="roomTypeFilter">
+            <option selected>Todos los tipos</option><option>Simple</option><option>Doble</option><option>Matrimonial</option><option>Familiar</option><option>Suite</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-xl-3">
+          <label class="form-label" for="roomStatusFilter">Estado</label>
+          <select class="form-select" id="roomStatusFilter">
+            <option selected>Todos los estados</option><option>Disponible</option><option>Ocupada</option><option>Reservada</option><option>Limpieza</option><option>Mantenimiento</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-xl-3">
+          <label class="form-label" for="floorFilter">Piso</label>
+          <select class="form-select" id="floorFilter">
+            <option selected>Todos los pisos</option><option>Piso 1</option><option>Piso 2</option><option>Piso 3</option><option>Piso 4</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div><h4 class="card-title mb-1">Inventario de habitaciones</h4><p class="text-muted mb-0">6 registros de ejemplo de un total de 48</p></div>
+      <span class="badge bg-primary-subtle text-primary">Actualizado hoy 09:15</span>
+    </div>
+    <div class="card-body p-0">
+      <!-- TODO Fase refinamiento UI: revisar densidad y anchos mínimos de esta tabla en resoluciones intermedias. -->
+      <div class="table-responsive">
+        <table class="table table-striped mb-0 align-middle">
+          <thead><tr><th>Nº habitación</th><th>Piso</th><th>Tipo</th><th>Capacidad</th><th>Tarifa por noche</th><th>Estado</th><th>Huésped / reserva actual</th><th>Última actualización</th><th class="text-end">Acciones</th></tr></thead>
+          <tbody id="habitaciones-table-body">
+            <tr><td><strong>101</strong></td><td>Piso 1</td><td>Simple</td><td>1 persona</td><td>Bs 280</td><td><span class="badge bg-success">Disponible</span></td><td>—</td><td>Hoy 08:00</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#roomForm">Editar</button><button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">Estado</button><ul class="dropdown-menu"><li><button class="dropdown-item" type="button">Disponible</button></li><li><button class="dropdown-item" type="button">Limpieza</button></li><li><button class="dropdown-item" type="button">Mantenimiento</button></li></ul></div></td></tr>
+            <tr><td><strong>102</strong></td><td>Piso 1</td><td>Doble</td><td>2 personas</td><td>Bs 380</td><td><span class="badge bg-danger">Ocupada</span></td><td>Sergio Molina</td><td>Hoy 08:05</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#roomForm">Editar</button><button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">Estado</button><ul class="dropdown-menu"><li><button class="dropdown-item" type="button">Disponible</button></li><li><button class="dropdown-item" type="button">Limpieza</button></li><li><button class="dropdown-item" type="button">Mantenimiento</button></li></ul></div></td></tr>
+            <tr><td><strong>103</strong></td><td>Piso 1</td><td>Matrimonial</td><td>2 personas</td><td>Bs 450</td><td><span class="badge bg-warning text-dark">Limpieza</span></td><td>Carlos Méndez</td><td>Hoy 08:50</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#roomForm">Editar</button><button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">Estado</button><ul class="dropdown-menu"><li><button class="dropdown-item" type="button">Disponible</button></li><li><button class="dropdown-item" type="button">Limpieza</button></li><li><button class="dropdown-item" type="button">Mantenimiento</button></li></ul></div></td></tr>
+            <tr><td><strong>104</strong></td><td>Piso 1</td><td>Doble</td><td>2 personas</td><td>Bs 380</td><td><span class="badge bg-info">Reservada</span></td><td>RSV-1024</td><td>Hoy 09:10</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#roomForm">Editar</button><button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">Estado</button><ul class="dropdown-menu"><li><button class="dropdown-item" type="button">Disponible</button></li><li><button class="dropdown-item" type="button">Limpieza</button></li><li><button class="dropdown-item" type="button">Mantenimiento</button></li></ul></div></td></tr>
+            <tr><td><strong>201</strong></td><td>Piso 2</td><td>Familiar</td><td>4 personas</td><td>Bs 620</td><td><span class="badge bg-success">Disponible</span></td><td>—</td><td>Hoy 07:40</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#roomForm">Editar</button><button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">Estado</button><ul class="dropdown-menu"><li><button class="dropdown-item" type="button">Disponible</button></li><li><button class="dropdown-item" type="button">Limpieza</button></li><li><button class="dropdown-item" type="button">Mantenimiento</button></li></ul></div></td></tr>
+            <tr><td><strong>301</strong></td><td>Piso 3</td><td>Suite</td><td>2 personas</td><td>Bs 850</td><td><span class="badge bg-danger">Ocupada</span></td><td>Mariana Rojas</td><td>Hoy 07:20</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#roomForm">Editar</button><button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">Estado</button><ul class="dropdown-menu"><li><button class="dropdown-item" type="button">Disponible</button></li><li><button class="dropdown-item" type="button">Limpieza</button></li><li><button class="dropdown-item" type="button">Mantenimiento</button></li></ul></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="roomForm" data-bs-scroll="true" data-bs-backdrop="true" aria-labelledby="roomFormLabel">
+    <div class="offcanvas-header"><div><h4 class="offcanvas-title" id="roomFormLabel">Registrar / editar habitación</h4><p class="text-muted mb-0">Información operativa de la habitación</p></div><button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button></div>
+    <div class="offcanvas-body data-scrollbar">
+      <form class="needs-validation" id="room-data-form" novalidate>
+        <div id="room-form-alerts"></div>
+        <div class="mb-3"><label class="form-label" for="roomNumber">Número de habitación</label><input class="form-control" id="roomNumber" type="text" placeholder="Ej. 204" required></div>
+        <div class="mb-3"><label class="form-label" for="roomFloor">Piso</label><select class="form-select" id="roomFloor" required><option value="">Seleccionar piso</option><option>Piso 1</option><option>Piso 2</option><option>Piso 3</option><option>Piso 4</option></select></div>
+        <div class="mb-3"><label class="form-label" for="roomType">Tipo</label><select class="form-select" id="roomType" required><option value="">Seleccionar tipo</option><option>Simple</option><option>Doble</option><option>Matrimonial</option><option>Familiar</option><option>Suite</option></select></div>
+        <div class="mb-3"><label class="form-label" for="roomCapacity">Capacidad</label><input class="form-control" id="roomCapacity" type="number" min="1" max="8" placeholder="Número de personas" required></div>
+        <div class="mb-3"><label class="form-label" for="roomRate">Tarifa por noche</label><div class="input-group"><span class="input-group-text">Bs</span><input class="form-control" id="roomRate" type="number" min="0" placeholder="0,00" required></div></div>
+        <div class="mb-3"><label class="form-label" for="roomStatus">Estado</label><select class="form-select" id="roomStatus" required><option>Disponible</option><option>Ocupada</option><option>Reservada</option><option>Limpieza</option><option>Mantenimiento</option></select></div>
+        <div class="mb-3"><label class="form-label" for="roomNotes">Observaciones</label><textarea class="form-control" id="roomNotes" rows="4" placeholder="Detalles operativos de la habitación"></textarea></div>
+        <div class="alert alert-info">Este formulario no guarda información todavía.</div>
+        <div class="d-flex justify-content-end gap-2"><button class="btn btn-outline-secondary" type="button" data-bs-dismiss="offcanvas">Cancelar</button><button class="btn btn-primary" type="submit">Guardar habitación</button></div>
+      </form>
+    </div>
+  </div>
+</template>
+<script src="../../assets/js/recepcion/auth.js?v=12.1"></script><script src="recepcion-layout.js?v=12.3"></script><script src="../../assets/js/core/libs.min.js"></script><script src="../../assets/js/core/external.min.js"></script><script src="../../assets/js/plugins/setting.js"></script><script src="../../assets/js/hope-ui.js" defer></script><script src="../../assets/js/recepcion/api.js?v=12.2"></script><script src="../../assets/js/recepcion/habitaciones.js?v=12.2"></script>
+</body>
+</html>

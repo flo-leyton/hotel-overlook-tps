@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Gestión de Huéspedes | Hotel Overlook</title>
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+  <link rel="stylesheet" href="../../assets/css/hope-ui.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/custom.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/customizer.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/rtl.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/recepcion-ui.css">
+  <link rel="stylesheet" href="../../assets/css/recepcion-fixes.css?v=12.4">
+</head>
+<body data-page="huespedes.html" data-title="Gestión de Huéspedes" data-description="Registro, consulta y actualización de datos de huéspedes">
+<template id="page-content">
+  <div id="huespedes-alerts"></div>
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div><h4 class="mb-1">Gestión de Huéspedes</h4><p class="text-muted mb-0">Registro, consulta y actualización de datos de huéspedes</p></div>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#guestForm" aria-controls="guestForm">
+          <svg class="icon-18 me-1" width="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 19a6 6 0 0 0-12 0m6-8a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm9-4v6m-3-3h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Registrar huésped
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-xl-3"><div class="card"><div class="card-body"><p class="text-muted mb-2">Huéspedes registrados</p><div class="d-flex align-items-end justify-content-between"><h2 class="mb-0" id="guests-total">326</h2><span class="badge bg-primary">Total</span></div></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card"><div class="card-body"><p class="text-muted mb-2">Huéspedes activos</p><div class="d-flex align-items-end justify-content-between"><h2 class="mb-0">21</h2><span class="badge bg-success">Alojados</span></div></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card"><div class="card-body"><p class="text-muted mb-2">Nuevos hoy</p><div class="d-flex align-items-end justify-content-between"><h2 class="mb-0">6</h2><span class="badge bg-info">Registro</span></div></div></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="card"><div class="card-body"><p class="text-muted mb-2">Extranjeros</p><div class="d-flex align-items-end justify-content-between"><h2 class="mb-0">9</h2><span class="badge bg-warning text-dark">Visitantes</span></div></div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between"><div><h4 class="card-title mb-1">Consulta de huéspedes</h4><p class="text-muted mb-0">Busque registros por identidad, contacto o estado</p></div></div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-lg-6"><label class="form-label" for="guestSearch">Nombre, documento o correo</label><div class="input-group"><span class="input-group-text"><svg class="icon-18" width="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><input class="form-control" id="guestSearch" type="search" placeholder="Buscar huésped"></div></div>
+        <div class="col-md-6 col-lg-3"><label class="form-label" for="guestStatus">Estado</label><select class="form-select" id="guestStatus"><option>Todos los estados</option><option>Activo</option><option>Con reserva</option><option>Check-out hoy</option><option>Histórico</option></select></div>
+        <div class="col-md-6 col-lg-3"><label class="form-label" for="guestNationality">Nacionalidad</label><select class="form-select" id="guestNationality"><option>Todas</option><option>Bolivia</option><option>Argentina</option><option>Chile</option><option>Otra</option></select></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2"><div><h4 class="card-title mb-1">Directorio de huéspedes</h4><p class="text-muted mb-0">Información operativa de contacto y reservas</p></div><span class="badge bg-primary-subtle text-primary">4 registros de ejemplo</span></div>
+    <div class="card-body p-0">
+      <!-- TODO Fase refinamiento UI: evaluar columnas colapsables para teléfonos y correo en tablet. -->
+      <div class="table-responsive">
+        <table class="table table-striped mb-0 align-middle">
+          <thead><tr><th>Documento</th><th>Nombre completo</th><th>Nacionalidad</th><th>Teléfono</th><th>Correo</th><th>Ciudad</th><th>Estado</th><th>Última reserva</th><th class="text-end">Acciones</th></tr></thead>
+          <tbody id="huespedes-table-body">
+            <tr><td><strong>7894561</strong></td><td>Sergio Molina</td><td>Bolivia</td><td>+591 71234567</td><td><a href="mailto:sergio@mail.com">sergio@mail.com</a></td><td>La Paz</td><td><span class="badge bg-success">Activo</span></td><td>RSV-1019</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver perfil</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#guestForm">Editar</button><a class="btn btn-outline-success" href="reservaciones.html">Crear reserva</a></div></td></tr>
+            <tr><td><strong>P458899</strong></td><td>Mariana Rojas</td><td>Chile</td><td>+56 99887766</td><td><a href="mailto:mariana@mail.com">mariana@mail.com</a></td><td>Santiago</td><td><span class="badge bg-info">Con reserva</span></td><td>RSV-1024</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver perfil</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#guestForm">Editar</button><a class="btn btn-outline-success" href="reservaciones.html">Crear reserva</a></div></td></tr>
+            <tr><td><strong>6541237</strong></td><td>Carlos Méndez</td><td>Bolivia</td><td>+591 76543210</td><td><a href="mailto:carlos@mail.com">carlos@mail.com</a></td><td>Cochabamba</td><td><span class="badge bg-warning text-dark">Check-out hoy</span></td><td>RSV-1008</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver perfil</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#guestForm">Editar</button><a class="btn btn-outline-success" href="reservaciones.html">Crear reserva</a></div></td></tr>
+            <tr><td><strong>AR99213</strong></td><td>Lucía Paredes</td><td>Argentina</td><td>+54 911456789</td><td><a href="mailto:lucia@mail.com">lucia@mail.com</a></td><td>Buenos Aires</td><td><span class="badge bg-success">Activo</span></td><td>RSV-1015</td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-outline-primary" type="button">Ver perfil</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#guestForm">Editar</button><a class="btn btn-outline-success" href="reservaciones.html">Crear reserva</a></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="guestForm" data-bs-scroll="true" data-bs-backdrop="true" aria-labelledby="guestFormLabel">
+    <div class="offcanvas-header"><div><h4 class="offcanvas-title" id="guestFormLabel">Registrar / editar huésped</h4><p class="text-muted mb-0">Datos personales y de contacto</p></div><button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button></div>
+    <div class="offcanvas-body data-scrollbar">
+      <form class="needs-validation" id="guest-data-form" novalidate>
+        <div id="guest-form-alerts"></div>
+        <div class="mb-3"><label class="form-label" for="guestName">Nombre completo</label><input class="form-control" id="guestName" type="text" placeholder="Nombres y apellidos" required></div>
+        <div class="mb-3"><label class="form-label" for="guestDocument">Documento o pasaporte</label><input class="form-control" id="guestDocument" type="text" placeholder="C.I. o pasaporte" required></div>
+        <div class="mb-3"><label class="form-label" for="guestCountry">Nacionalidad</label><select class="form-select" id="guestCountry" required><option value="">Seleccionar nacionalidad</option><option>Bolivia</option><option>Argentina</option><option>Chile</option><option>Perú</option><option>Otra</option></select></div>
+        <div class="mb-3"><label class="form-label" for="guestPhone">Teléfono</label><input class="form-control" id="guestPhone" type="tel" placeholder="+591 70000000" required></div>
+        <div class="mb-3"><label class="form-label" for="guestEmail">Correo electrónico</label><input class="form-control" id="guestEmail" type="email" placeholder="huesped@correo.com"></div>
+        <div class="mb-3"><label class="form-label" for="guestCity">Ciudad de procedencia</label><input class="form-control" id="guestCity" type="text" placeholder="Ciudad"></div>
+        <div class="mb-3"><label class="form-label" for="guestBirth">Fecha de nacimiento <span class="text-muted">(opcional)</span></label><input class="form-control" id="guestBirth" type="date"></div>
+        <div class="mb-3"><label class="form-label" for="guestNotes">Observaciones</label><textarea class="form-control" id="guestNotes" rows="4" placeholder="Preferencias o información relevante"></textarea></div>
+        <div class="alert alert-info">Revise el documento y los datos de contacto antes de guardar.</div>
+        <div class="d-flex justify-content-end gap-2"><button class="btn btn-outline-secondary" type="button" data-bs-dismiss="offcanvas">Cancelar</button><button class="btn btn-primary" type="submit">Guardar huésped</button></div>
+      </form>
+    </div>
+  </div>
+</template>
+<script src="../../assets/js/recepcion/auth.js?v=12.1"></script><script src="recepcion-layout.js?v=12.3"></script><script src="../../assets/js/core/libs.min.js"></script><script src="../../assets/js/core/external.min.js"></script><script src="../../assets/js/plugins/setting.js"></script><script src="../../assets/js/hope-ui.js" defer></script><script src="../../assets/js/recepcion/api.js?v=12.2"></script><script src="../../assets/js/recepcion/huespedes.js?v=12.2"></script>
+</body>
+</html>

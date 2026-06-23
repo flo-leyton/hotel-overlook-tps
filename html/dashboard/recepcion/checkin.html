@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Check-in de Huésped | Hotel Overlook</title>
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+  <link rel="stylesheet" href="../../assets/css/hope-ui.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/custom.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/customizer.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/rtl.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/recepcion-ui.css">
+  <link rel="stylesheet" href="../../assets/css/recepcion-fixes.css?v=12.4">
+</head>
+<body data-page="checkin.html" data-title="Check-in de Huésped" data-description="Confirmación de llegada, validación de datos y asignación de habitación">
+<template id="page-content">
+  <div id="checkin-alerts"></div>
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+          <h4 class="mb-1">Check-in de Huésped</h4>
+          <p class="text-muted mb-0">Confirmación de llegada, validación de datos y asignación de habitación</p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge bg-primary-subtle text-primary" data-active-shift>Turno activo</span>
+          <span class="badge bg-success-subtle text-success"><span id="checkin-pending-count">0</span> llegadas confirmadas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <div class="header-title">
+        <h4 class="card-title mb-1">Proceso de check-in</h4>
+        <p class="text-muted mb-0">Complete los cuatro pasos para registrar la llegada</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <!-- TODO Fase refinamiento UI: revisar proporción y separación del encabezado del wizard en tablet. -->
+      <form id="form-wizard1" class="mt-3 text-center">
+        <ul id="top-tab-list" class="p-0 row list-inline">
+          <li class="mb-2 col-lg-3 col-md-6 text-start active" id="account">
+            <a href="javascript:void(0);">
+              <div class="iq-icon me-3"><svg class="svg-icon icon-20" width="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+              <span class="dark-wizard">1. Buscar reserva</span>
+            </a>
+          </li>
+          <li class="mb-2 col-lg-3 col-md-6 text-start" id="personal">
+            <a href="javascript:void(0);">
+              <div class="iq-icon me-3"><svg class="svg-icon icon-20" width="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M5 21a7 7 0 0 1 14 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+              <span class="dark-wizard">2. Verificar huésped</span>
+            </a>
+          </li>
+          <li class="mb-2 col-lg-3 col-md-6 text-start" id="payment">
+            <a href="javascript:void(0);">
+              <div class="iq-icon me-3"><svg class="svg-icon icon-20" width="20" viewBox="0 0 24 24" fill="none"><path d="M3 20V8h18v12M5 8V4h14v4M7 13h4m5 0h1M7 17h4m5 0h1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="dark-wizard">3. Asignar habitación</span>
+            </a>
+          </li>
+          <li class="mb-2 col-lg-3 col-md-6 text-start" id="confirm">
+            <a href="javascript:void(0);">
+              <div class="iq-icon me-3"><svg class="svg-icon icon-20" width="20" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <span class="dark-wizard">4. Confirmar check-in</span>
+            </a>
+          </li>
+        </ul>
+
+        <fieldset>
+          <div class="form-card text-start">
+            <div class="row"><div class="col-8"><h3 class="mb-4">Buscar reserva confirmada</h3></div><div class="col-4"><h2 class="steps">Paso 1 - 4</h2></div></div>
+            <div class="row g-3 mb-4">
+              <div class="col-md-4"><label class="form-label" for="checkinCode">Código de reserva</label><input class="form-control" id="checkinCode" type="search" placeholder="RSV-1024"></div>
+              <div class="col-md-4"><label class="form-label" for="checkinDocument">Documento</label><input class="form-control" id="checkinDocument" type="search" placeholder="C.I. o pasaporte"></div>
+              <div class="col-md-4"><label class="form-label" for="checkinGuest">Nombre del huésped</label><input class="form-control" id="checkinGuest" type="search" placeholder="Nombre completo"></div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-striped align-middle">
+                <thead><tr><th>Reserva</th><th>Huésped</th><th>Documento</th><th>Habitación / tipo</th><th>Entrada</th><th>Origen</th><th>Estado</th><th class="text-end">Acción</th></tr></thead>
+                <tbody id="checkin-reservations-body">
+                  <tr><td><strong>RSV-1024</strong></td><td>Mariana Rojas</td><td>P458899</td><td>204 · Doble</td><td>22/06/2026</td><td><span class="badge bg-info-subtle text-info">Landing</span></td><td><span class="badge bg-success">Confirmada</span></td><td class="text-end"><button class="btn btn-sm btn-primary" type="button">Seleccionar reserva</button></td></tr>
+                  <tr><td><strong>RSV-1025</strong></td><td>Pablo Heredia</td><td>8821456</td><td>301 · Suite</td><td>22/06/2026</td><td><span class="badge bg-success-subtle text-success">WhatsApp</span></td><td><span class="badge bg-success">Confirmada</span></td><td class="text-end"><button class="btn btn-sm btn-primary" type="button">Seleccionar reserva</button></td></tr>
+                  <tr><td><strong>RSV-1027</strong></td><td>Diego Flores</td><td>6677889</td><td>410 · Familiar</td><td>22/06/2026</td><td><span class="badge bg-secondary-subtle text-secondary">Agencia</span></td><td><span class="badge bg-success">Confirmada</span></td><td class="text-end"><button class="btn btn-sm btn-primary" type="button">Seleccionar reserva</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Next">Continuar</button>
+        </fieldset>
+
+        <fieldset>
+          <div class="form-card text-start">
+            <div class="row"><div class="col-8"><h3 class="mb-4">Verificar datos del huésped</h3></div><div class="col-4"><h2 class="steps">Paso 2 - 4</h2></div></div>
+            <div class="alert alert-info">Verifique que los datos del huésped coincidan con su documento antes de continuar.</div>
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label" for="guestFullName">Nombre completo</label><input class="form-control" id="guestFullName" value="Mariana Rojas"></div>
+              <div class="col-md-6"><label class="form-label" for="guestId">Documento o pasaporte</label><input class="form-control" id="guestId" value="P458899"></div>
+              <div class="col-md-4"><label class="form-label" for="guestNationality">Nacionalidad</label><input class="form-control" id="guestNationality" value="Chile"></div>
+              <div class="col-md-4"><label class="form-label" for="guestPhone">Teléfono</label><input class="form-control" id="guestPhone" value="+56 99887766"></div>
+              <div class="col-md-4"><label class="form-label" for="guestEmail">Correo</label><input class="form-control" id="guestEmail" type="email" value="mariana@mail.com"></div>
+              <div class="col-md-6"><label class="form-label" for="guestCity">Ciudad de procedencia</label><input class="form-control" id="guestCity" value="Santiago"></div>
+              <div class="col-md-6"><label class="form-label" for="guestNotes">Observaciones</label><input class="form-control" id="guestNotes" value="Solicita habitación silenciosa."></div>
+            </div>
+          </div>
+          <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Next">Datos verificados</button>
+          <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1 text-white" value="Previous">Anterior</button>
+        </fieldset>
+
+        <fieldset>
+          <div class="form-card text-start">
+            <div class="row"><div class="col-8"><h3 class="mb-4">Asignar habitación</h3></div><div class="col-4"><h2 class="steps">Paso 3 - 4</h2></div></div>
+            <div class="row">
+              <div class="col-lg-5">
+                <div class="card border border-primary">
+                  <div class="card-header"><div class="d-flex justify-content-between"><h4 class="card-title">Habitación sugerida</h4><span class="badge bg-info">Reservada</span></div></div>
+                  <div class="card-body">
+                    <h2 class="text-primary">204</h2>
+                    <dl class="row mb-0"><dt class="col-6">Tipo</dt><dd class="col-6">Doble</dd><dt class="col-6">Capacidad</dt><dd class="col-6">2 personas</dd><dt class="col-6">Tarifa</dt><dd class="col-6">Bs 380 / noche</dd><dt class="col-6">Estado actual</dt><dd class="col-6"><span class="badge bg-info">Reservada</span></dd></dl>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <div class="card">
+                  <div class="card-header"><h4 class="card-title">Habitaciones alternativas disponibles</h4></div>
+                  <div class="card-body">
+                    <label class="form-label" for="alternativeRoom">Seleccionar habitación alternativa</label>
+                    <select class="form-select mb-3" id="alternativeRoom">
+                      <option selected>204 Doble · Bs 380 · Reservada para esta reserva</option>
+                      <option>101 Simple · Bs 280 · Disponible</option>
+                      <option>201 Familiar · Bs 620 · Disponible</option>
+                      <option>205 Doble · Bs 380 · Disponible</option>
+                      <option>302 Matrimonial · Bs 450 · Disponible</option>
+                    </select>
+                    <div class="table-responsive">
+                      <table class="table table-sm"><thead><tr><th>Habitación</th><th>Tipo</th><th>Tarifa</th><th>Estado</th></tr></thead><tbody id="checkin-rooms-body"><tr><td>101</td><td>Simple</td><td>Bs 280</td><td><span class="badge bg-success">Disponible</span></td></tr><tr><td>201</td><td>Familiar</td><td>Bs 620</td><td><span class="badge bg-success">Disponible</span></td></tr><tr><td>205</td><td>Doble</td><td>Bs 380</td><td><span class="badge bg-success">Disponible</span></td></tr><tr><td>302</td><td>Matrimonial</td><td>Bs 450</td><td><span class="badge bg-success">Disponible</span></td></tr></tbody></table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-warning">Al confirmar el check-in, la habitación cambiará a estado <strong>Ocupada</strong>.</div>
+          </div>
+          <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Submit">Revisar confirmación</button>
+          <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1 text-white" value="Previous">Anterior</button>
+        </fieldset>
+
+        <fieldset>
+          <div class="form-card text-start">
+            <div class="row"><div class="col-8"><h3 class="mb-4">Confirmar check-in</h3></div><div class="col-4"><h2 class="steps">Paso 4 - 4</h2></div></div>
+            <div class="card border">
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-md-4"><small class="text-muted d-block">Código de reserva</small><strong id="checkin-summary-code">RSV-1024</strong></div>
+                  <div class="col-md-4"><small class="text-muted d-block">Huésped</small><strong id="checkin-summary-guest">Mariana Rojas</strong></div>
+                  <div class="col-md-4"><small class="text-muted d-block">Documento</small><strong id="checkin-summary-document">P458899</strong></div>
+                  <div class="col-md-4"><small class="text-muted d-block">Habitación asignada</small><strong id="checkin-summary-room">204 · Doble</strong></div>
+                  <div class="col-md-4"><small class="text-muted d-block">Fecha de entrada</small><strong id="checkin-summary-arrival">22/06/2026</strong></div>
+                  <div class="col-md-4"><small class="text-muted d-block">Fecha de salida</small><strong id="checkin-summary-departure">24/06/2026</strong></div>
+                  <div class="col-md-4"><small class="text-muted d-block">Noches estimadas</small><strong>2 noches</strong></div>
+                  <div class="col-md-4"><small class="text-muted d-block">Usuario responsable</small><strong data-active-user-name>Usuario activo</strong></div>
+                  <div class="col-md-4"><small class="text-muted d-block">Fecha y hora</small><strong data-current-datetime>Al confirmar</strong></div>
+                </div>
+                <hr>
+                <div class="d-flex flex-wrap gap-2"><span class="badge bg-success">Reserva: Confirmada → Check-in</span><span class="badge bg-danger">Habitación: Reservada → Ocupada</span><span class="badge bg-primary">Operación registrada</span></div>
+              </div>
+            </div>
+            <div class="alert alert-success collapse" id="checkinSuccess">Check-in registrado correctamente. La reserva cambió a estado Check-in y la habitación a Ocupada.</div>
+            <div class="d-flex flex-wrap justify-content-end gap-2">
+              <a class="btn btn-outline-secondary" href="dashboard-recepcion.html">Cancelar operación</a>
+              <button class="btn btn-success" id="confirm-checkin-button" type="button">Confirmar check-in</button>
+            </div>
+          </div>
+          <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1 mt-3 text-white" value="Previous">Anterior</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex flex-wrap justify-content-between gap-2"><div><h4 class="card-title mb-1">Check-ins realizados hoy</h4><p class="text-muted mb-0">Registro operativo del turno</p></div><span class="badge bg-success-subtle text-success">Historial centralizado</span></div>
+    <div class="card-body"><p class="text-muted mb-0">Los check-ins completados se consultan en el historial de <a href="operaciones.html">Operaciones</a>.</p></div>
+  </div>
+</template>
+<script src="../../assets/js/recepcion/auth.js?v=12.1"></script><script src="recepcion-layout.js?v=12.3"></script><script src="../../assets/js/core/libs.min.js"></script><script src="../../assets/js/core/external.min.js"></script><script src="../../assets/js/plugins/form-wizard.js"></script><script src="../../assets/js/plugins/setting.js"></script><script src="../../assets/js/hope-ui.js" defer></script><script src="../../assets/js/recepcion/api.js?v=12.2"></script><script src="../../assets/js/recepcion/checkin.js?v=12.2"></script>
+</body>
+</html>

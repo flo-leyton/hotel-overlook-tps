@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="es" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Dashboard de Recepción | Hotel Overlook</title>
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+  <link rel="stylesheet" href="../../assets/css/hope-ui.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/custom.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/customizer.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/rtl.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/recepcion-ui.css">
+  <link rel="stylesheet" href="../../assets/css/recepcion-fixes.css?v=12.4">
+  <style>
+    .metric-icon {
+      width: 46px;
+      height: 46px;
+    }
+    .room-status {
+      min-height: 92px;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .room-status:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .08);
+    }
+    .operation-timeline {
+      position: relative;
+      padding-left: 1.75rem;
+    }
+    .operation-timeline::before {
+      position: absolute;
+      top: .35rem;
+      bottom: .35rem;
+      left: .45rem;
+      width: 2px;
+      content: "";
+      background: var(--bs-border-color);
+    }
+    .operation-item {
+      position: relative;
+      padding-bottom: 1.25rem;
+    }
+    .operation-item:last-child {
+      padding-bottom: 0;
+    }
+    .operation-dot {
+      position: absolute;
+      top: .25rem;
+      left: -1.72rem;
+      width: .9rem;
+      height: .9rem;
+      border: 3px solid var(--bs-body-bg);
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body
+  data-page="dashboard-recepcion.html"
+  data-title="Dashboard de Recepción"
+  data-description="Centro de Control">
+<template id="page-content">
+  <div id="dashboard-alerts"></div>
+  <section aria-labelledby="operational-heading">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+          <div>
+            <span class="badge bg-primary-subtle text-primary mb-2">Centro operativo de recepción</span>
+            <h4 class="mb-1" id="operational-heading">Datos del panel</h4>
+            
+          </div>
+          <div class="d-flex flex-wrap gap-2">
+            <div class="border rounded p-3 bg-body">
+              <small class="d-block text-muted">Fecha operativa</small>
+              <strong data-current-date>Fecha actual</strong>
+            </div>
+            <div class="border rounded p-3 bg-body">
+              <small class="d-block text-muted">Turno activo</small>
+              <strong data-active-shift>Turno activo</strong>
+            </div>
+            <div class="border rounded p-3 bg-body">
+              <small class="d-block text-muted">Usuario activo</small>
+              <strong><span data-active-user-role>Rol</span>: <span data-active-user-name>Usuario activo</span></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="hotel-status-heading">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h4 class="mb-0" id="hotel-status-heading"><strong> Estado general </strong></h4>
+      <span class="badge bg-success-subtle text-success">Actualizado: <span data-current-time>--:--</span></span>
+      
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-6 col-xl-2">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-start justify-content-between">
+              <div>
+                <p class="mb-2 text-muted">Total habitaciones</p>
+                <h2 class="mb-0" id="metric-total-habitaciones">48</h2>
+              </div>
+              <span class="metric-icon d-inline-flex align-items-center justify-content-center rounded bg-primary-subtle text-primary">
+                <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M3 21V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16M8 7h2m4 0h2M8 11h2m4 0h2M7 21v-5h10v5M2 21h20" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="badge bg-primary mt-3">Inventario</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-2">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-start justify-content-between">
+              <div>
+                <p class="mb-2 text-muted">Disponibles</p>
+                <h2 class="mb-0" id="metric-disponibles">18</h2>
+              </div>
+              <span class="metric-icon d-inline-flex align-items-center justify-content-center rounded bg-success-subtle text-success">
+                <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="badge bg-success mt-3">Lista para venta</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-2">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-start justify-content-between">
+              <div>
+                <p class="mb-2 text-muted">Ocupadas</p>
+                <h2 class="mb-0" id="metric-ocupadas">21</h2>
+              </div>
+              <span class="metric-icon d-inline-flex align-items-center justify-content-center rounded bg-danger-subtle text-danger">
+                <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 18v-7h16v7M4 15H2v5m18-5h2v5M7 11V7h5a3 3 0 0 1 3 3v1M4 20h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="badge bg-danger mt-3">Con huésped</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-2">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-start justify-content-between">
+              <div>
+                <p class="mb-2 text-muted">Reservadas</p>
+                <h2 class="mb-0" id="metric-reservadas">6</h2>
+              </div>
+              <span class="metric-icon d-inline-flex align-items-center justify-content-center rounded bg-info-subtle text-info">
+                <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                  <path d="M8 3v4m8-4v4M4 10h16m-8 3v4m-2-2h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="badge bg-info mt-3">Llegada prevista</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-2">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-start justify-content-between">
+              <div>
+                <p class="mb-2 text-muted">En limpieza</p>
+                <h2 class="mb-0" id="metric-limpieza">3</h2>
+              </div>
+              <span class="metric-icon d-inline-flex align-items-center justify-content-center rounded bg-warning-subtle text-warning">
+                <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m4 20 6-6m2-2 6-6m-2-2 4 4M8 14l2 2m-5 4h6m6-8 3 3M6 6l.6 1.4L8 8l-1.4.6L6 10l-.6-1.4L4 8l1.4-.6L6 6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="badge bg-warning mt-3">No disponible</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-2">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex align-items-start justify-content-between">
+              <div>
+                <p class="mb-2 text-muted">Mantenimiento</p>
+                <h2 class="mb-0" id="metric-mantenimiento">1</h2>
+              </div>
+              <span class="metric-icon d-inline-flex align-items-center justify-content-center rounded bg-dark-subtle text-dark">
+                <svg class="icon-24" width="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m14 7 3-3 3 3-3 3m-3-3-9 9a2.1 2.1 0 0 0 3 3l9-9M5 5l4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <span class="badge bg-dark mt-3">Fuera de servicio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <div class="col-xl-5">
+      <div class="card h-100">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h4 class="card-title mb-1">Ocupación y disponibilidad</h4>
+            <p class="text-muted mb-0">Situación operativa actual</p>
+          </div>
+          <h2 class="text-primary mb-0" id="metric-ocupacion">56%</h2>
+        </div>
+        <div class="card-body">
+          <div class="progress mb-3" style="height: 12px;" role="progressbar" aria-label="Porcentaje de ocupación" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-primary" id="progress-ocupacion" style="width: 56%"></div>
+          </div>
+          <h5 id="ocupacion-detalle">27 de 48 habitaciones no disponibles para venta inmediata</h5>
+          <p class="text-muted mb-3">Incluye ocupadas, reservadas, limpieza y mantenimiento.</p>
+          <div class="alert alert-primary d-flex align-items-center mb-0" role="alert">
+            <svg class="icon-20 flex-shrink-0 me-2" width="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M12 11v5m0-8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>18 habitaciones están listas para nuevas asignaciones.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-7">
+      <div class="row h-100">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div><span class="text-muted">Check-ins pendientes hoy</span><h2 class="mt-2 mb-0" id="metric-checkins-hoy">8</h2></div>
+                <span class="badge bg-primary-subtle text-primary">Llegadas</span>
+              </div>
+              <a class="btn btn-sm btn-primary" href="checkin.html">Ver check-ins</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div><span class="text-muted">Check-outs pendientes hoy</span><h2 class="mt-2 mb-0" id="metric-checkouts-hoy">5</h2></div>
+                <span class="badge bg-warning-subtle text-warning">Salidas</span>
+              </div>
+              <a class="btn btn-sm btn-warning" href="checkout.html">Ver check-outs</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card mb-xl-0">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div><span class="text-muted">Reservas pendientes desde landing</span><h2 class="mt-2 mb-0" id="metric-reservas-landing">4</h2></div>
+                <span class="badge bg-info-subtle text-info">Por confirmar</span>
+              </div>
+              <a class="btn btn-sm btn-info" href="reservaciones.html">Revisar reservas</a><br>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card mb-0">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div><span class="text-muted">Solicitudes del huésped pendientes</span><h2 class="mt-2 mb-0" id="metric-solicitudes-pendientes">7</h2></div>
+                <span class="badge bg-danger-subtle text-danger">Atención</span>
+              </div>
+              <a class="btn btn-sm btn-danger" href="solicitudes.html">Ver solicitudes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div>
+            <h4 class="card-title mb-1">Llegadas de hoy</h4>
+            <p class="text-muted mb-0">Reservaciones previstas para el turno actual</p>
+          </div>
+          <span class="badge bg-primary">4 próximas llegadas</span>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-striped mb-0 align-middle">
+              <thead>
+                <tr>
+                  <th>Hora estimada</th>
+                  <th>Código reserva</th>
+                  <th>Huésped</th>
+                  <th>Habitación / tipo</th>
+                  <th>Origen</th>
+                  <th>Estado</th>
+                  <th class="text-end">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>09:30</strong></td>
+                  <td>RSV-1024</td>
+                  <td>Mariana Rojas</td>
+                  <td>204 · Doble</td>
+                  <td><span class="badge bg-info-subtle text-info">Landing</span></td>
+                  <td><span class="badge bg-success">Confirmada</span></td>
+                  <td class="text-end"><a class="btn btn-sm btn-primary" href="checkin.html">Check-in</a></td>
+                </tr>
+                <tr>
+                  <td><strong>11:00</strong></td>
+                  <td>RSV-1025</td>
+                  <td>Pablo Heredia</td>
+                  <td>301 · Suite</td>
+                  <td><span class="badge bg-success-subtle text-success">WhatsApp</span></td>
+                  <td><span class="badge bg-success">Confirmada</span></td>
+                  <td class="text-end"><a class="btn btn-sm btn-primary" href="checkin.html">Check-in</a></td>
+                </tr>
+                <tr>
+                  <td><strong>13:30</strong></td>
+                  <td>RSV-1026</td>
+                  <td>Ana Salvatierra</td>
+                  <td>115 · Simple</td>
+                  <td><span class="badge bg-primary-subtle text-primary">Recepción</span></td>
+                  <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                  <td class="text-end"><a class="btn btn-sm btn-outline-warning" href="reservaciones.html">Confirmar</a></td>
+                </tr>
+                <tr>
+                  <td><strong>18:00</strong></td>
+                  <td>RSV-1027</td>
+                  <td>Diego Flores</td>
+                  <td>410 · Familiar</td>
+                  <td><span class="badge bg-secondary-subtle text-secondary">Agencia</span></td>
+                  <td><span class="badge bg-primary">Check-in pendiente</span></td>
+                  <td class="text-end"><a class="btn btn-sm btn-primary" href="checkin.html">Check-in</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <div class="col-xl-7">
+      <div class="card h-100">
+        <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div>
+            <h4 class="card-title mb-1">Salidas de hoy</h4>
+            <p class="text-muted mb-0">Habitaciones pendientes de cierre operativo</p>
+          </div>
+          <span class="badge bg-warning text-dark">3 salidas prioritarias</span>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-striped mb-0 align-middle">
+              <thead>
+                <tr>
+                  <th>Hora límite</th>
+                  <th>Huésped</th>
+                  <th>Habitación</th>
+                  <th>Noches</th>
+                  <th>Total estimado</th>
+                  <th>Estado</th>
+                  <th class="text-end">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>12:00</strong></td>
+                  <td>Carlos Méndez</td>
+                  <td>202</td>
+                  <td>2</td>
+                  <td>Bs 760</td>
+                  <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                  <td class="text-end"><a class="btn btn-sm btn-warning" href="checkout.html">Check-out</a></td>
+                </tr>
+                <tr>
+                  <td><strong>12:00</strong></td>
+                  <td>Lucía Paredes</td>
+                  <td>305</td>
+                  <td>3</td>
+                  <td>Bs 1.350</td>
+                  <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                  <td class="text-end"><a class="btn btn-sm btn-warning" href="checkout.html">Check-out</a></td>
+                </tr>
+                <tr>
+                  <td><strong>14:00</strong></td>
+                  <td>Roberto Vargas</td>
+                  <td>118</td>
+                  <td>1</td>
+                  <td>Bs 280</td>
+                  <td><span class="badge bg-danger">Late check-out</span></td>
+                  <td class="text-end"><a class="btn btn-sm btn-outline-danger" href="checkout.html">Revisar</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-5">
+      <div class="card h-100">
+        <div class="card-header">
+          <h4 class="card-title mb-1">Accesos rápidos</h4>
+          <p class="text-muted mb-0">Operaciones frecuentes del front desk</p>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-sm-6"><a class="btn btn-primary w-100 py-3" href="reservaciones.html">Nueva reservación</a></div>
+            <div class="col-sm-6"><a class="btn btn-outline-primary w-100 py-3" href="huespedes.html">Registrar huésped</a></div>
+            <div class="col-sm-6"><a class="btn btn-success w-100 py-3" href="checkin.html">Realizar check-in</a></div>
+            <div class="col-sm-6"><a class="btn btn-warning w-100 py-3" href="checkout.html">Realizar check-out</a></div>
+            <div class="col-sm-6"><a class="btn btn-info w-100 py-3" href="habitaciones.html">Ver habitaciones</a></div>
+            <div class="col-sm-6"><a class="btn btn-outline-danger w-100 py-3" href="solicitudes.html">Registrar solicitud</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="rooms-heading">
+    <div class="card">
+      <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+          <h4 class="card-title mb-1" id="rooms-heading">Estado rápido de habitaciones</h4>
+          <p class="text-muted mb-0">Muestra operativa de habitaciones prioritarias</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge bg-success">Disponible</span>
+          <span class="badge bg-danger">Ocupada</span>
+          <span class="badge bg-info">Reservada</span>
+          <span class="badge bg-warning text-dark">Limpieza</span>
+          <span class="badge bg-dark">Mantenimiento</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-success rounded p-3 bg-success-subtle"><h4 class="text-success mb-1">101</h4><strong>Disponible</strong><small class="d-block text-muted">Simple</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-danger rounded p-3 bg-danger-subtle"><h4 class="text-danger mb-1">102</h4><strong>Ocupada</strong><small class="d-block text-muted">Doble</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-warning rounded p-3 bg-warning-subtle"><h4 class="text-warning mb-1">103</h4><strong>Limpieza</strong><small class="d-block text-muted">Simple</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-info rounded p-3 bg-info-subtle"><h4 class="text-info mb-1">104</h4><strong>Reservada</strong><small class="d-block text-muted">Doble</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-dark rounded p-3 bg-dark-subtle"><h4 class="text-dark mb-1">105</h4><strong>Mantenimiento</strong><small class="d-block text-muted">Simple</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-success rounded p-3 bg-success-subtle"><h4 class="text-success mb-1">201</h4><strong>Disponible</strong><small class="d-block text-muted">Doble</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-danger rounded p-3 bg-danger-subtle"><h4 class="text-danger mb-1">202</h4><strong>Ocupada</strong><small class="d-block text-muted">Doble</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-danger rounded p-3 bg-danger-subtle"><h4 class="text-danger mb-1">203</h4><strong>Ocupada</strong><small class="d-block text-muted">Simple</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-info rounded p-3 bg-info-subtle"><h4 class="text-info mb-1">204</h4><strong>Reservada</strong><small class="d-block text-muted">Doble</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-success rounded p-3 bg-success-subtle"><h4 class="text-success mb-1">205</h4><strong>Disponible</strong><small class="d-block text-muted">Simple</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-danger rounded p-3 bg-danger-subtle"><h4 class="text-danger mb-1">301</h4><strong>Ocupada</strong><small class="d-block text-muted">Suite</small></div></div>
+          <div class="col-6 col-md-4 col-lg-3 col-xxl-2"><div class="room-status border border-warning rounded p-3 bg-warning-subtle"><h4 class="text-warning mb-1">302</h4><strong>Limpieza</strong><small class="d-block text-muted">Doble</small></div></div>
+        </div>
+        <div class="text-end mt-3"><a class="btn btn-sm btn-outline-primary" href="habitaciones.html">Ver todas las habitaciones</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <div class="col-xl-7">
+      <div class="card h-100">
+        <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+          <div>
+            <h4 class="card-title mb-1">Solicitudes recientes del huésped</h4>
+            <p class="text-muted mb-0">Tickets que requieren seguimiento desde recepción</p>
+          </div>
+          <a class="btn btn-sm btn-outline-primary" href="solicitudes.html">Ver solicitudes</a>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-striped mb-0 align-middle">
+              <thead>
+                <tr>
+                  <th>Hora</th>
+                  <th>Habitación</th>
+                  <th>Huésped</th>
+                  <th>Solicitud</th>
+                  <th>Canal</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>08:15</strong></td>
+                  <td>302</td>
+                  <td>Laura Quiroga</td>
+                  <td>Toallas adicionales</td>
+                  <td><span class="badge bg-success-subtle text-success">WhatsApp</span></td>
+                  <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                </tr>
+                <tr>
+                  <td><strong>08:40</strong></td>
+                  <td>210</td>
+                  <td>Andrés Lima</td>
+                  <td>Limpieza urgente</td>
+                  <td><span class="badge bg-primary-subtle text-primary">Recepción</span></td>
+                  <td><span class="badge bg-info">En atención</span></td>
+                </tr>
+                <tr>
+                  <td><strong>09:10</strong></td>
+                  <td>405</td>
+                  <td>Paula Rivero</td>
+                  <td>Taxi al centro</td>
+                  <td><span class="badge bg-secondary-subtle text-secondary">Teléfono</span></td>
+                  <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-5">
+      <div class="card h-100">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <div>
+            <h4 class="card-title mb-1">Últimas operaciones</h4>
+            <p class="text-muted mb-0">Trazabilidad del turno</p>
+          </div>
+          <a class="btn btn-sm btn-outline-primary" href="operaciones.html">Historial</a>
+        </div>
+        <div class="card-body">
+          <div class="operation-timeline" id="ultimas-operaciones-container">
+            <p class="text-muted mb-0">Cargando actividad reciente…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script src="../../assets/js/recepcion/auth.js?v=12.1"></script>
+<script src="recepcion-layout.js?v=12.3"></script>
+<script src="../../assets/js/core/libs.min.js"></script>
+<script src="../../assets/js/core/external.min.js"></script>
+<script src="../../assets/js/plugins/setting.js"></script>
+<script src="../../assets/js/hope-ui.js" defer></script>
+<script src="../../assets/js/recepcion/api.js?v=12.2"></script>
+<script src="../../assets/js/recepcion/dashboard.js?v=12.2"></script>
+</body>
+</html>

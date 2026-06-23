@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Acceso TPS | Hotel Overlook</title>
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+  <link rel="stylesheet" href="../../assets/css/hope-ui.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/custom.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/customizer.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/rtl.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/overlook-auth.css?v=12.4">
+</head>
+<body class="overlook-auth-page">
+  <div id="loading"><div class="loader simple-loader"><div class="loader-body"></div></div></div>
+  <main class="login-content">
+    <div class="row g-0 m-0 bg-white overlook-auth-row">
+      <div class="col-lg-5 overlook-auth-form-panel">
+            <div class="card card-transparent shadow-none mb-0 auth-card overlook-auth-card">
+              <div class="card-body">
+                <a href="../../landing-pages/hotel-overlook.html" class="navbar-brand d-flex align-items-center mb-4 overlook-auth-brand">
+                  <img src="../../landing-pages/assets/images/hotel-overlook/logo-hotel-overlook.png" class="overlook-auth-logo" alt="Hotel Overlook" onerror="this.classList.add('d-none');">
+                  <svg class="icon-36 text-primary me-2 overlook-auth-logo-fallback-icon" width="36" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+                    <rect x="3" y="5" width="24" height="20" rx="3" fill="currentColor" opacity=".2"/>
+                    <path d="M7 21V10h5v11M18 21V10h5v11M5 21h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  <h4 class="logo-title mb-0 overlook-auth-logo-fallback-text">Hotel Overlook</h4>
+                </a>
+                <h2 class="mb-2">Acceso al TPS de Recepción</h2>
+                <p class="text-muted mb-4">Ingrese con su cuenta interna para continuar.</p>
+                <div id="login-alerts"></div>
+                <form id="login-form" novalidate>
+                  <div class="mb-3">
+                    <label class="form-label" for="login-email">Correo</label>
+                    <input class="form-control" id="login-email" type="email" autocomplete="username" placeholder="usuario@hoteloverlook.bo" required>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label" for="login-password">Contraseña</label>
+                    <input class="form-control" id="login-password" type="password" autocomplete="current-password" placeholder="Contraseña" required>
+                  </div>
+                  <button class="btn btn-primary w-100" id="login-button" type="submit">Iniciar sesión</button>
+                </form>
+                <p class="text-muted small mt-4 mb-0">Acceso exclusivo para personal autorizado del Hotel Overlook.</p>
+              </div>
+            </div>
+      </div>
+      <div class="col-lg-7 d-none d-lg-block p-0">
+        <div class="overlook-auth-visual">
+          <img src="../../assets/images/auth/01.png" alt="Hotel Overlook">
+          <div class="overlook-auth-visual-copy text-white">
+            <h2 class="text-white">Hotel Overlook</h2>
+            <p class="lead mb-0">Control operativo de recepción · Oruro, Bolivia</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="../../assets/js/recepcion/auth.js?v=12.1"></script>
+  <script src="../../assets/js/core/libs.min.js"></script>
+  <script src="../../assets/js/core/external.min.js"></script>
+  <script src="../../assets/js/plugins/setting.js"></script>
+  <script src="../../assets/js/hope-ui.js" defer></script>
+  <script>
+    document.getElementById("login-form").addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const button = document.getElementById("login-button");
+      const alerts = document.getElementById("login-alerts");
+      button.disabled = true;
+      button.textContent = "Verificando...";
+      alerts.innerHTML = "";
+      try {
+        await window.RecepcionAuth.login(
+          document.getElementById("login-email").value.trim(),
+          document.getElementById("login-password").value
+        );
+        window.location.href = "../recepcion/dashboard-recepcion.html";
+      } catch (error) {
+        alerts.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+      } finally {
+        button.disabled = false;
+        button.textContent = "Iniciar sesión";
+      }
+    });
+  </script>
+</body>
+</html>

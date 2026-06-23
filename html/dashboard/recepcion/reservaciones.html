@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es" dir="ltr" data-bs-theme="light" data-bs-theme-color="theme-color-default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Gestión de Reservaciones | Hotel Overlook</title>
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico">
+  <link rel="stylesheet" href="../../assets/css/core/libs.min.css">
+  <link rel="stylesheet" href="../../assets/css/hope-ui.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/custom.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/customizer.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/rtl.min.css?v=5.0.0">
+  <link rel="stylesheet" href="../../assets/css/recepcion-ui.css">
+  <link rel="stylesheet" href="../../assets/css/recepcion-fixes.css?v=12.4">
+</head>
+<body data-page="reservaciones.html" data-title="Gestión de Reservaciones" data-description="Control de solicitudes, confirmaciones y reservas activas">
+<template id="page-content">
+  <div id="reservaciones-alerts"></div>
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div><h4 class="mb-1">Gestión de Reservaciones</h4><p class="text-muted mb-0">Control de solicitudes, confirmaciones y reservas activas</p></div>
+        <div class="d-flex flex-wrap gap-2">
+          <a class="btn btn-outline-primary" href="#landingRequests">Reservas desde landing</a>
+          <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#reservationForm" aria-controls="reservationForm">
+            <svg class="icon-18 me-1" width="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Nueva reservación
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-xl"><div class="card"><div class="card-body"><p class="text-muted mb-2">Reservas del mes</p><div class="d-flex align-items-end justify-content-between"><h2 class="mb-0" id="metric-reservas-total-mes">84</h2><span class="badge bg-primary">Total</span></div></div></div></div>
+    <div class="col-sm-6 col-xl"><div class="card"><div class="card-body"><p class="text-muted mb-2">Pendientes</p><div class="d-flex align-items-end justify-content-between"><h2 class="mb-0" id="metric-reservas-pendientes">7</h2><span class="badge bg-warning text-dark">Pendiente</span></div></div></div></div>
+    <div class="col-sm-6 col-xl"><div class="card"><div class="card-body"><p class="text-muted mb-2">Confirmadas</p><div class="d-flex align-items-end justify-content-between"><h2 class="mb-0" id="metric-reservas-confirmadas">18</h2><span class="badge bg-success">Confirmada</span></div></div></div></div>
+    <div class="col-sm-6 col-xl"><div class="card"><div class="card-body"><p class="text-muted mb-2">Check-in hoy</p><div class="d-flex align-items-end justify-content-between"><h2 class="mb-0" id="metric-reservas-checkin-hoy">8</h2><span class="badge bg-info">Llegadas</span></div></div></div></div>
+    <div class="col-sm-6 col-xl"><div class="card"><div class="card-body"><p class="text-muted mb-2">Canceladas</p><div class="d-flex align-items-end justify-content-between"><h2 class="mb-0" id="metric-reservas-canceladas">3</h2><span class="badge bg-danger">Cancelada</span></div></div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between"><div><h4 class="card-title mb-1">Filtros de reservaciones</h4><p class="text-muted mb-0">Consulta por datos de reserva, fechas y origen</p></div></div>
+    <div class="card-body">
+      <form class="row g-3">
+        <div class="col-md-6 col-xl-4"><label class="form-label" for="reservationSearch">Código, huésped o documento</label><input class="form-control" id="reservationSearch" type="search" placeholder="Ej. RSV-1024"></div>
+        <div class="col-md-6 col-xl-2"><label class="form-label" for="reservationStatusFilter">Estado</label><select class="form-select" id="reservationStatusFilter"><option>Todos</option><option>Pendiente</option><option>Confirmada</option><option>Check-in</option><option>Check-out</option><option>Cancelada</option></select></div>
+        <div class="col-md-6 col-xl-2"><label class="form-label" for="reservationOriginFilter">Origen</label><select class="form-select" id="reservationOriginFilter"><option>Todos</option><option>Recepción</option><option>Landing</option><option>WhatsApp</option><option>Teléfono</option><option>Agencia</option></select></div>
+        <div class="col-md-6 col-xl-2"><label class="form-label" for="arrivalFilter">Fecha de entrada</label><input class="form-control" id="arrivalFilter" type="date" value="2026-06-22"></div>
+        <div class="col-md-6 col-xl-2"><label class="form-label" for="reservationTypeFilter">Tipo habitación</label><select class="form-select" id="reservationTypeFilter"><option>Todos</option><option>Simple</option><option>Doble</option><option>Matrimonial</option><option>Familiar</option><option>Suite</option></select></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2"><div><h4 class="card-title mb-1">Listado de reservaciones</h4><p class="text-muted mb-0">Reservas activas y solicitudes en seguimiento</p></div><span class="badge bg-primary-subtle text-primary">5 registros de ejemplo</span></div>
+    <div class="card-body p-0">
+      <!-- TODO Fase refinamiento UI: revisar estrategia responsive de acciones y fechas para pantallas medianas. -->
+      <div class="table-responsive">
+        <table class="table table-striped mb-0 align-middle">
+          <thead><tr><th>Código</th><th>Huésped</th><th>Documento</th><th>Habitación / tipo</th><th>Entrada</th><th>Salida</th><th>Adultos</th><th>Niños</th><th>Origen</th><th>Estado</th><th class="text-end">Acciones</th></tr></thead>
+          <tbody id="reservaciones-table-body">
+            <tr><td><strong>RSV-1024</strong></td><td>Mariana Rojas</td><td>P458899</td><td>204 · Doble</td><td>22/06/2026</td><td>24/06/2026</td><td>2</td><td>0</td><td><span class="badge bg-info-subtle text-info">Landing</span></td><td><span class="badge bg-success">Confirmada</span></td><td class="text-end"><div class="btn-group btn-group-sm"><a class="btn btn-primary" href="checkin.html">Check-in</a><button class="btn btn-outline-primary" type="button">Ver detalle</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#reservationForm">Editar</button></div></td></tr>
+            <tr><td><strong>RSV-1025</strong></td><td>Pablo Heredia</td><td>8821456</td><td>301 · Suite</td><td>22/06/2026</td><td>25/06/2026</td><td>1</td><td>0</td><td><span class="badge bg-success-subtle text-success">WhatsApp</span></td><td><span class="badge bg-success">Confirmada</span></td><td class="text-end"><div class="btn-group btn-group-sm"><a class="btn btn-primary" href="checkin.html">Check-in</a><button class="btn btn-outline-primary" type="button">Ver detalle</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#reservationForm">Editar</button></div></td></tr>
+            <tr><td><strong>RSV-1026</strong></td><td>Ana Salvatierra</td><td>7123098</td><td>115 · Simple</td><td>22/06/2026</td><td>23/06/2026</td><td>1</td><td>0</td><td><span class="badge bg-primary-subtle text-primary">Recepción</span></td><td><span class="badge bg-warning text-dark">Pendiente</span></td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-success" type="button">Confirmar</button><button class="btn btn-outline-danger" type="button">Cancelar</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#reservationForm">Editar</button></div></td></tr>
+            <tr><td><strong>RSV-1027</strong></td><td>Diego Flores</td><td>6677889</td><td>410 · Familiar</td><td>22/06/2026</td><td>26/06/2026</td><td>2</td><td>2</td><td><span class="badge bg-secondary-subtle text-secondary">Agencia</span></td><td><span class="badge bg-success">Confirmada</span></td><td class="text-end"><div class="btn-group btn-group-sm"><a class="btn btn-primary" href="checkin.html">Check-in</a><button class="btn btn-outline-primary" type="button">Ver detalle</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#reservationForm">Editar</button></div></td></tr>
+            <tr><td><strong>RSV-1028</strong></td><td>Carla Ríos</td><td>5533442</td><td><span class="text-muted">Sin asignar</span></td><td>23/06/2026</td><td>24/06/2026</td><td>2</td><td>0</td><td><span class="badge bg-info-subtle text-info">Landing</span></td><td><span class="badge bg-warning text-dark">Pendiente</span></td><td class="text-end"><div class="btn-group btn-group-sm"><button class="btn btn-success" type="button">Confirmar</button><button class="btn btn-outline-danger" type="button">Cancelar</button><button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#reservationForm">Editar</button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="landingRequests">
+    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2"><div><h4 class="card-title mb-1">Solicitudes recibidas desde la landing</h4><p class="text-muted mb-0">Reservas web pendientes de validación por recepción</p></div><span class="badge bg-warning text-dark"><span id="metric-reservas-landing-pendientes">4</span> por revisar</span></div>
+    <div class="card-body">
+      <div class="row" id="landing-requests-container">
+        <div class="col-lg-6">
+          <div class="border rounded p-3 h-100">
+            <div class="d-flex justify-content-between gap-2 mb-3"><div><h5 class="mb-1">Carla Ríos</h5><span class="text-muted">RSV-1028 · 23 al 24 de junio</span></div><span class="badge bg-warning text-dark align-self-start">Pendiente</span></div>
+            <div class="row mb-3"><div class="col-6"><small class="text-muted d-block">Solicitud</small><strong>Doble · 2 adultos</strong></div><div class="col-6"><small class="text-muted d-block">Contacto</small><strong>+591 70112233</strong></div></div>
+            <div class="d-flex flex-wrap gap-2"><button class="btn btn-sm btn-outline-primary" type="button">Revisar solicitud</button><button class="btn btn-sm btn-success" type="button">Confirmar reserva</button><button class="btn btn-sm btn-outline-success" type="button">Contactar huésped</button></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="border rounded p-3 h-100">
+            <div class="d-flex justify-content-between gap-2 mb-3"><div><h5 class="mb-1">Daniela Fernández</h5><span class="text-muted">Solicitud web · 25 al 27 de junio</span></div><span class="badge bg-warning text-dark align-self-start">Pendiente</span></div>
+            <div class="row mb-3"><div class="col-6"><small class="text-muted d-block">Solicitud</small><strong>Suite · 2 adultos</strong></div><div class="col-6"><small class="text-muted d-block">Contacto</small><strong>+591 77445566</strong></div></div>
+            <div class="d-flex flex-wrap gap-2"><button class="btn btn-sm btn-outline-primary" type="button">Revisar solicitud</button><button class="btn btn-sm btn-success" type="button">Confirmar reserva</button><button class="btn btn-sm btn-outline-success" type="button">Contactar huésped</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="reservationForm" data-bs-scroll="true" data-bs-backdrop="true" aria-labelledby="reservationFormLabel">
+    <div class="offcanvas-header"><div><h4 class="offcanvas-title" id="reservationFormLabel">Nueva / editar reservación</h4><p class="text-muted mb-0">Datos de la solicitud y la estadía</p></div><button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button></div>
+    <div class="offcanvas-body data-scrollbar">
+      <form class="needs-validation" id="reservation-data-form" novalidate>
+        <div id="reservation-form-alerts"></div>
+        <div class="mb-3"><label class="form-label" for="reservationGuest">Huésped</label><input class="form-control" id="reservationGuest" type="text" list="reservationGuestList" placeholder="Nombre completo" required><datalist id="reservationGuestList"></datalist></div>
+        <div class="row"><div class="col-md-6 mb-3"><label class="form-label" for="reservationDocument">Documento</label><input class="form-control" id="reservationDocument" type="text" required></div><div class="col-md-6 mb-3"><label class="form-label" for="reservationPhone">Teléfono</label><input class="form-control" id="reservationPhone" type="tel" required></div></div>
+        <div class="mb-3"><label class="form-label" for="reservationEmail">Correo</label><input class="form-control" id="reservationEmail" type="email" placeholder="huesped@correo.com"></div>
+        <div class="row"><div class="col-md-6 mb-3"><label class="form-label" for="reservationRoomType">Tipo de habitación</label><select class="form-select" id="reservationRoomType" required><option value="">Seleccionar</option><option>Simple</option><option>Doble</option><option>Matrimonial</option><option>Familiar</option><option>Suite</option></select></div><div class="col-md-6 mb-3"><label class="form-label" for="reservationRoom">Habitación asignada</label><select class="form-select" id="reservationRoom"><option>Sin asignar</option><option>101</option><option>201</option><option>205</option></select></div></div>
+        <div class="row"><div class="col-md-6 mb-3"><label class="form-label" for="reservationArrival">Fecha de entrada</label><input class="form-control" id="reservationArrival" type="date" required></div><div class="col-md-6 mb-3"><label class="form-label" for="reservationDeparture">Fecha de salida</label><input class="form-control" id="reservationDeparture" type="date" required></div></div>
+        <div class="row"><div class="col-md-6 mb-3"><label class="form-label" for="reservationAdults">Adultos</label><input class="form-control" id="reservationAdults" type="number" min="1" value="1" required></div><div class="col-md-6 mb-3"><label class="form-label" for="reservationChildren">Niños</label><input class="form-control" id="reservationChildren" type="number" min="0" value="0"></div></div>
+        <div class="row"><div class="col-md-6 mb-3"><label class="form-label" for="reservationOrigin">Origen</label><select class="form-select" id="reservationOrigin"><option>Recepción</option><option>Landing</option><option>WhatsApp</option><option>Teléfono</option><option>Agencia</option></select></div><div class="col-md-6 mb-3"><label class="form-label" for="reservationStatus">Estado</label><select class="form-select" id="reservationStatus"><option>Pendiente</option><option>Confirmada</option><option>Check-in</option><option>Check-out</option><option>Cancelada</option></select></div></div>
+        <div class="mb-3"><label class="form-label" for="specialRequests">Solicitudes especiales</label><textarea class="form-control" id="specialRequests" rows="4" placeholder="Preferencias o requerimientos del huésped"></textarea></div>
+        <div class="alert alert-info">La disponibilidad y el guardado se implementarán con backend en una fase posterior.</div>
+        <div class="d-flex justify-content-end gap-2"><button class="btn btn-outline-secondary" type="button" data-bs-dismiss="offcanvas">Cancelar</button><button class="btn btn-primary" type="submit">Guardar reservación</button></div>
+      </form>
+    </div>
+  </div>
+</template>
+<script src="../../assets/js/recepcion/auth.js?v=12.1"></script><script src="recepcion-layout.js?v=12.3"></script><script src="../../assets/js/core/libs.min.js"></script><script src="../../assets/js/core/external.min.js"></script><script src="../../assets/js/plugins/setting.js"></script><script src="../../assets/js/hope-ui.js" defer></script><script src="../../assets/js/recepcion/api.js?v=12.2"></script><script src="../../assets/js/recepcion/reservaciones.js?v=12.2"></script>
+</body>
+</html>
