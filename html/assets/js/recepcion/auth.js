@@ -2,7 +2,17 @@
   "use strict";
 
   const STORAGE_KEY = "hotel_overlook_usuario";
-  const API_BASE_URL = "/api";
+  function resolverApiBaseUrl() {
+    const { protocol, hostname, port } = global.location;
+    const esLiveServer =
+      protocol === "file:" ||
+      ["5500", "5501", "5502"].includes(port) ||
+      (hostname === "127.0.0.1" && port !== "3000") ||
+      (hostname === "localhost" && port && port !== "3000");
+    return esLiveServer ? "http://localhost:3000/api" : "/api";
+  }
+
+  const API_BASE_URL = resolverApiBaseUrl();
   const HTML_PREFIX = global.location.pathname.includes("/html/")
     ? global.location.pathname.slice(
         0,
